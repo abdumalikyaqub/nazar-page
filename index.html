@@ -37,6 +37,11 @@
     margin-top: 10px;
   }
 
+  .text-label {
+    font-size: 1.2rem;
+    margin-top: 8px;
+  }
+
   .output-box {
     background: #f9f9f9;
     padding: 1rem;
@@ -114,6 +119,8 @@
         <label class="slider-label mt-4">Частота показа в час: <span id="frequencyValue">4</span></label>
         <input type="range" class="form-range" min="4" max="12" step="2" id="frequencySlider">
 
+        <div class="text-label">Частота показа: раз в <strong id="frequencyMinutes">15</strong> минут</div>
+
         <label class="slider-label mt-4">Количество экранов: <span id="screensValue">30</span></label>
         <input type="range" class="form-range" min="5" max="30" step="5" id="screensSlider">
 
@@ -150,6 +157,8 @@
       const screenRatio = screens / tariff.baseScreens;
       const frequencyRatio = frequency / 4;
       const periodRatio = period / 30;
+
+      $('#frequencyMinutes').text(Math.round(60 / frequency));
 
       $('#durationValue').text(duration);
       $('#frequencyValue').text(frequency);
