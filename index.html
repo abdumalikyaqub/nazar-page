@@ -133,18 +133,18 @@
         <div class="row mb-4">
             <div class="col-md-6">
                 <label class="slider-label">Длительность ролика (сек): <span id="durationValue">5</span></label>
-                <input type="range" class="form-range" min="5" max="20" step="5" id="durationSlider">
+                <input type="range" class="form-range" min="5" max="20" step="5" id="durationSlider" value="5">
 
                 <label class="slider-label mt-4">Частота показа в час: <span id="frequencyValue">4</span></label>
-                <input type="range" class="form-range" min="4" max="12" step="2" id="frequencySlider">
+                <input type="range" class="form-range" min="4" max="12" step="2" id="frequencySlider" value="4">
 
                 <div class="text-label">Частота показа: раз в <strong id="frequencyMinutes">15</strong> минут</div>
 
-                <label class="slider-label mt-4">Количество экранов: <span id="screensValue">30</span></label>
-                <input type="range" class="form-range" min="5" max="30" step="5" id="screensSlider">
+                <label class="slider-label mt-4">Количество экранов: <span id="screensValue">10</span></label>
+                <input type="range" class="form-range" min="10" max="60" step="10" id="screensSlider" value="10">
 
-                <label class="slider-label mt-4">Период размещения (дней): <span id="periodValue">10</span></label>
-                <input type="range" class="form-range" min="10" max="30" step="10" id="periodSlider">
+                <label class="slider-label mt-4">Период размещения (дней): <span id="periodValue">30</span></label>
+                <input type="range" class="form-range" min="30" max="90" step="15" id="periodSlider" value="30">
             </div>
 
             <div class="col-md-6">
@@ -152,7 +152,7 @@
                     <h3>Итог:</h3>
                     <div class="text">Стоимость: <strong id="cost">2 250</strong> сомони.</div>
                     <div class="text">Показов в месяц: <strong id="views">22 500</strong></div>
-                    <div class="text">Охват (увидели): <strong id="reach">360 000</strong></div>
+                    <div class="text">Охват (увидят): <strong id="reach">360 000</strong></div>
                 </div>
             </div>
         </div>
@@ -212,7 +212,7 @@
             $('#frequencyMinutes').text(Math.round(frequencyMinutes));
 
             // Пример охвата (если хочешь оставить старую логику, можешь скорректировать)
-            $('#reach').text((views * 16).toLocaleString());
+            $('#reach').text((period * screens * 400).toLocaleString());
         }
 
         $('#durationSlider, #frequencySlider, #screensSlider, #periodSlider').on('input', updateOutput);
