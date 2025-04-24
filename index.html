@@ -166,28 +166,13 @@
             20: { baseCost: 3600, baseScreens: 5, views: 9000, reach: 60000 }
         };
 
-        // function updateOutput() {
-        //   const duration = parseInt($('#durationSlider').val());
-        //   const frequency = parseInt($('#frequencySlider').val());
-        //   const screens = parseInt($('#screensSlider').val());
-        //   const period = parseInt($('#periodSlider').val());
-
-        //   const tariff = tariffs[duration];
-        //   const screenRatio = screens / tariff.baseScreens;
-        //   const frequencyRatio = frequency / 4;
-        //   const periodRatio = period / 30;
-
-        //   $('#frequencyMinutes').text(Math.round(60 / frequency));
-
-        //   $('#durationValue').text(duration);
-        //   $('#frequencyValue').text(frequency);
-        //   $('#screensValue').text(screens);
-        //   $('#periodValue').text(period);
-
-        //   $('#cost').text(Math.round(tariff.baseCost * screenRatio * frequencyRatio * periodRatio));
-        //   $('#views').text(Math.round(tariff.views * screenRatio * frequencyRatio * periodRatio));
-        //   $('#reach').text(Math.round(tariff.reach * screenRatio * frequencyRatio * periodRatio));
-        // }
+        const reachModifiers = {
+            4: 0.88,
+            6: 0.91,
+            8: 0.94,
+            10: 0.97,
+            12: 1.00
+        };
 
         function updateOutput() {
             const duration = parseInt($('#durationSlider').val());   // в секундах
@@ -202,6 +187,9 @@
             const cost = views * duration * secondsPrice;
             const frequencyMinutes = 60 / frequency;
 
+            const reachModifier = reachModifiers[frequency] || 1.0; // безопасная подстраховка
+            const reach = period * screens * 400 * reachModifier;
+
             $('#durationValue').text(duration);
             $('#frequencyValue').text(frequency);
             $('#screensValue').text(screens);
@@ -212,7 +200,7 @@
             $('#frequencyMinutes').text(Math.round(frequencyMinutes));
 
             // Пример охвата (если хочешь оставить старую логику, можешь скорректировать)
-            $('#reach').text((period * screens * 400).toLocaleString());
+            $('#reach').text(Math.round(reach).toLocaleString());
         }
 
         $('#durationSlider, #frequencySlider, #screensSlider, #periodSlider').on('input', updateOutput);
