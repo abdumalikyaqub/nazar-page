@@ -159,13 +159,6 @@
     </div>
 
     <script>
-        const tariffs = {
-            5: { baseCost: 2250, baseScreens: 30, views: 22500, reach: 360000 },
-            10: { baseCost: 3600, baseScreens: 20, views: 18000, reach: 240000 },
-            15: { baseCost: 4050, baseScreens: 10, views: 13500, reach: 120000 },
-            20: { baseCost: 3600, baseScreens: 5, views: 9000, reach: 60000 }
-        };
-
         const reachModifiers = {
             4: 0.88,
             6: 0.91,
@@ -174,20 +167,30 @@
             12: 1.00
         };
 
+        function getDiscount(period) {
+            if (period >= 90) return 0.4;
+            if (period >= 75) return 0.3;
+            if (period >= 60) return 0.2;
+            if (period >= 45) return 0.1;
+            return 0;
+        }
+
         function updateOutput() {
-            const duration = parseInt($('#durationSlider').val());   // в секундах
-            const frequency = parseInt($('#frequencySlider').val()); // в час
+            const duration = parseInt($('#durationSlider').val());
+            const frequency = parseInt($('#frequencySlider').val());
             const screens = parseInt($('#screensSlider').val());
-            const period = parseInt($('#periodSlider').val());       // дней
+            const period = parseInt($('#periodSlider').val());
 
             const hoursPerDay = 8;
-            const secondsPrice = 0.02;
+            const secondsPrice = 0.010;
 
             const views = period * screens * frequency * hoursPerDay;
-            const cost = views * duration * secondsPrice;
-            const frequencyMinutes = 60 / frequency;
+            const baseCost = views * duration * secondsPrice;
+            const discount = getDiscount(period);
+            const discountedCost = baseCost * (1 - discount);
 
-            const reachModifier = reachModifiers[frequency] || 1.0; // безопасная подстраховка
+            const frequencyMinutes = 60 / frequency;
+            const reachModifier = reachModifiers[frequency] || 1.0;
             const reach = period * screens * 400 * reachModifier;
 
             $('#durationValue').text(duration);
@@ -195,17 +198,24 @@
             $('#screensValue').text(screens);
             $('#periodValue').text(period);
 
-            $('#cost').text(Math.round(cost).toLocaleString());
+            if (discount > 0) {
+                $('#cost').html(
+                    `<s>${Math.round(baseCost).toLocaleString()}</s> 
+                    <span style="color:green;">${Math.round(discountedCost).toLocaleString()}</span>`
+                );
+            } else {
+                $('#cost').html(`${Math.round(baseCost).toLocaleString()}`);
+            }
+
             $('#views').text(views.toLocaleString());
             $('#frequencyMinutes').text(Math.round(frequencyMinutes));
-
-            // Пример охвата (если хочешь оставить старую логику, можешь скорректировать)
             $('#reach').text(Math.round(reach).toLocaleString());
         }
 
         $('#durationSlider, #frequencySlider, #screensSlider, #periodSlider').on('input', updateOutput);
         $(document).ready(updateOutput);
     </script>
+
 </body>
 
 </html>
