@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +12,6 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #222;
             background: linear-gradient(135deg, #e0eafc, #cfdef3);
-            /* мягкий светлый фон */
             min-height: 100vh;
             display: flex;
             align-items: center;
@@ -39,11 +37,6 @@
             margin-top: 10px;
         }
 
-        .text-label {
-            font-size: 1.2rem;
-            margin-top: 8px;
-        }
-
         .output-box {
             background: #f9f9f9;
             padding: 1rem;
@@ -51,171 +44,107 @@
             box-shadow: inset 0 0 8px rgba(0, 0, 0, 0.05);
         }
 
-        /* Стили ползунков (оставляем твои) */
-        #screensSlider::-webkit-slider-thumb,
-        #frequencySlider::-webkit-slider-thumb,
-        #durationSlider::-webkit-slider-thumb,
-        #periodSlider::-webkit-slider-thumb {
-            background-color: rgb(45, 85, 204);
+        .text-label {
+            font-size: 1.2rem;
+            margin-top: 8px;
         }
 
-        #screensSlider::-webkit-slider-runnable-track,
-        #frequencySlider::-webkit-slider-runnable-track,
-        #durationSlider::-webkit-slider-runnable-track,
-        #periodSlider::-webkit-slider-runnable-track {
-            background-color: #757272;
+        .logo-container {
+            text-align: center;
+            margin-bottom: 1rem;
         }
 
-        .slider-label {
+        .logo {
+            max-height: 60px;
+            border-radius: 2%;
+            box-shadow: 0 0 0 rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .presentation-link {
+            margin-top: 1.5rem;
+            display: inline-block;
             font-weight: bold;
-            font-size: 1.4rem;
         }
 
-        .output-box {
-            background: white;
-            padding: 1rem;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .text {
-            font-size: 1.4rem;
-            margin-top: 10px;
-        }
-
-        #screensSlider::-webkit-slider-thumb,
-        #frequencySlider::-webkit-slider-thumb,
-        #durationSlider::-webkit-slider-thumb,
-        #periodSlider::-webkit-slider-thumb {
-            background-color: rgb(45, 85, 204);
-        }
-
-        #screensSlider::-moz-range-thumb,
-        #frequencySlider::-moz-range-thumb,
-        #durationSlider::-moz-range-thumb,
-        #periodSlider::-moz-range-thumb {
-            background-color: black;
-        }
-
-        #screensSlider::-ms-thumb,
-        #frequencySlider::-ms-thumb,
-        #durationSlider::-ms-thumb,
-        #periodSlider::-ms-thumb {
-            background-color: black;
-        }
-
-        #screensSlider::-webkit-slider-runnable-track,
-        #frequencySlider::-webkit-slider-runnable-track,
-        #durationSlider::-webkit-slider-runnable-track,
-        #periodSlider::-webkit-slider-runnable-track {
-            background-color: #757272;
-        }
-
-        #screensSlider::-moz-range-track,
-        #frequencySlider::-moz-range-track,
-        #durationSlider::-moz-range-track,
-        #periodSlider::-moz-range-track {
-            background-color: #d1d1d1;
-        }
-
-        #screensSlider::-ms-track,
-        #frequencySlider::-ms-track,
-        #durationSlider::-ms-track,
-        #periodSlider::-ms-track {
-            background-color: #d1d1d1;
+        .discount-note {
+            color: #28a745;
+            font-weight: bold;
+            margin-top: 1rem;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <h1 class="mb-4">Настрой свой рекламный пакет</h1>
-        <div class="row mb-4">
-            <div class="col-md-6">
-                <label class="slider-label">Длительность ролика (сек): <span id="durationValue">5</span></label>
-                <input type="range" class="form-range" min="5" max="20" step="5" id="durationSlider" value="5">
-
-                <label class="slider-label mt-4">Частота показа в час: <span id="frequencyValue">4</span></label>
-                <input type="range" class="form-range" min="4" max="12" step="2" id="frequencySlider" value="4">
-
-                <div class="text-label">Частота показа: раз в <strong id="frequencyMinutes">15</strong> минут</div>
-
-                <label class="slider-label mt-4">Количество экранов: <span id="screensValue">10</span></label>
-                <input type="range" class="form-range" min="10" max="60" step="10" id="screensSlider" value="10">
-
-                <label class="slider-label mt-4">Период размещения (дней): <span id="periodValue">30</span></label>
-                <input type="range" class="form-range" min="30" max="90" step="15" id="periodSlider" value="30">
-            </div>
-
-            <div class="col-md-6">
-                <div class="output-box">
-                    <h3>Итог:</h3>
-                    <div class="text">Стоимость: <strong id="cost">2 250</strong> сомони.</div>
-                    <div class="text">Показы: <strong id="views">22 500</strong></div>
-                    <div class="text">Охват (увидят): <strong id="reach">360 000</strong></div>
-                </div>
-            </div>
-        </div>
+<div class="container">
+    <div class="logo-container">
+        <img src="logo.png" alt="Логотип компании" class="logo">
     </div>
 
-    <script>
-        const reachModifiers = {
-            4: 0.88,
-            6: 0.91,
-            8: 0.94,
-            10: 0.97,
-            12: 1.00
-        };
+    <h2 class="mb-4">Настрой свой рекламный пакет</h2>
 
-        function getDiscount(period) {
-            if (period >= 90) return 0.4;
-            if (period >= 75) return 0.3;
-            if (period >= 60) return 0.2;
-            if (period >= 45) return 0.1;
-            return 0;
-        }
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <label class="slider-label mt-1">Частота показа: каждые 3–5 минут</label>
+            
+            <label class="slider-label mt-4">Длительность ролика (сек): <span id="durationValue">5</span></label>
+            <input type="range" class="form-range" min="5" max="20" step="5" id="durationSlider" value="5">
 
-        function updateOutput() {
-            const duration = parseInt($('#durationSlider').val());
-            const frequency = parseInt($('#frequencySlider').val());
-            const screens = parseInt($('#screensSlider').val());
-            const period = parseInt($('#periodSlider').val());
+            <label class="slider-label mt-4">Количество экранов: <span id="screensValue">10</span></label>
+            <input type="range" class="form-range" min="10" max="60" step="10" id="screensSlider" value="10">
 
-            const hoursPerDay = 8;
-            const secondsPrice = 0.010;
+            <label class="slider-label mt-4">Период размещения (дней): <span id="periodValue">30</span></label>
+            <input type="range" class="form-range" min="30" max="90" step="15" id="periodSlider" value="30">
+        </div>
 
-            const views = period * screens * frequency * hoursPerDay;
-            const baseCost = views * duration * secondsPrice;
-            const discount = getDiscount(period);
-            const discountedCost = baseCost * (1 - discount);
+        <div class="col-md-6">
+            <div class="output-box">
+                <h3>Итог:</h3>
+                <div class="text">Стоимость: <strong id="cost">2 250</strong> сомони</div>
+                <div class="text">Показы: <strong id="views">22 500</strong></div>
+                <div class="text">Охват (увидят): <strong id="reach">360 000</strong></div>
+                <div class="discount-note">50% скидка на первые 3 заказа!</div>
+            </div>
 
-            const frequencyMinutes = 60 / frequency;
-            const reachModifier = reachModifiers[frequency] || 1.0;
-            const reach = period * screens * 400 * reachModifier;
+            <a href="###" target="_blank" class="presentation-link btn btn-primary mt-4">
+                📄 Скачать коммерческое предложение
+            </a>
+        </div>
+    </div>
+</div>
 
-            $('#durationValue').text(duration);
-            $('#frequencyValue').text(frequency);
-            $('#screensValue').text(screens);
-            $('#periodValue').text(period);
+<script>
+    function updateOutput() {
+        const duration = parseInt($('#durationSlider').val());
+        const frequency = 12; // фиксированное значение (пример: каждые 5 минут)
+        const screens = parseInt($('#screensSlider').val());
+        const period = parseInt($('#periodSlider').val());
 
-            if (discount > 0) {
-                $('#cost').html(
-                    `<s>${Math.round(baseCost).toLocaleString()}</s> 
-                    <span style="color:green;">${Math.round(discountedCost).toLocaleString()}</span>`
-                );
-            } else {
-                $('#cost').html(`${Math.round(baseCost).toLocaleString()}`);
-            }
+        const hoursPerDay = 8;
+        const secondsPrice = 0.010;
 
-            $('#views').text(views.toLocaleString());
-            $('#frequencyMinutes').text(Math.round(frequencyMinutes));
-            $('#reach').text(Math.round(reach).toLocaleString());
-        }
+        const views = period * screens * frequency * hoursPerDay;
+        const baseCost = views * duration * secondsPrice;
+        const discountedCost = baseCost * 0.5;
 
-        $('#durationSlider, #frequencySlider, #screensSlider, #periodSlider').on('input', updateOutput);
-        $(document).ready(updateOutput);
-    </script>
+        const reachModifier = 1.00;
+        const reach = period * screens * 400 * reachModifier;
+
+        $('#durationValue').text(duration);
+        $('#screensValue').text(screens);
+        $('#periodValue').text(period);
+        $('#cost').html(`<span>${Math.round(baseCost).toLocaleString()}</span>`);
+        $('#views').text(views.toLocaleString());
+        $('#reach').text(Math.round(reach).toLocaleString());
+    }
+
+    $('#durationSlider, #screensSlider, #periodSlider').on('input', updateOutput);
+    $(document).ready(updateOutput);
+</script>
 
 </body>
-
 </html>
